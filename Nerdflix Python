@@ -1,0 +1,288 @@
+cliente = []
+diadacompra = []
+listadenome = []
+listadetipo = []
+listadepreco = []
+valorpagar = []
+
+# essas listas são para armazenar tudo que vai ser executado no relatorio compra e relatorio de compra.
+
+
+def linha(tam=42):
+    return '-' * tam
+
+
+def cabeçalho():
+    print(linha())
+    print('<<<<sistema Nerdflix>>>>')
+    print('..............Welcome............   ')
+    print(linha())
+
+
+cabeçalho()
+
+def menu():
+
+    product_code = []
+    product_name = []
+    product_type = []
+    product_price = []
+    product_avaliable = []
+    while True:
+        # este while aqui é para trazer o menu cada vez q executar o programa
+        print("***************************************")
+        print('Choose an option :')
+        option = int(input(""))
+        if option == 1:
+            print("Cadastrar produtos")
+            cadastrar(product_code, product_name, product_type, product_price,
+                      product_avaliable)
+        elif option == 2:
+            print("Consultar produto")
+            consultar(product_code, product_name, product_type, product_price,
+                      product_avaliable)
+        elif option == 3:
+            print("Atualizar produtos")
+            atualizar(product_code, product_name, product_type, product_price,
+                      product_avaliable)
+        elif option == 4:
+            print("Relatório de produtos")
+            relatorio(product_code, product_name, product_type,
+                      product_avaliable, product_price)
+        elif option == 5:
+            print("Registrar compra")
+            registrar(product_code, product_name, product_type, product_price,
+                      product_avaliable, cliente, diadacompra, listadenome,
+                      listadetipo, listadepreco, valorpagar)
+        elif option == 6:
+            print("Relatório de compras")
+            relatório(product_code, product_name, product_type, product_price,
+                      product_avaliable, cliente, diadacompra, listadenome,
+                      listadetipo, listadepreco, valorpagar)
+
+        else:
+            print("Thanks for using our Systeme")
+            break
+
+
+def cadastrar(product_code, product_name, product_type, product_price,
+              product_avaliable):
+
+    codigo_do_produto = int(input('Id:  '))
+    nome = input('Nome:  ')
+    tipo = int(input('entrar o tipo 1-Filme 2-serie 3-documentario : '))
+
+    preço = abs(float(input('entrar o preço pfv: ')))
+    disponivel = (input('digite True ou False se esta disponivel: '))== "True"
+
+    product_code.append((codigo_do_produto))
+    product_name.append((nome))
+    product_type.append((tipo))
+    product_price.append((preço))
+    product_avaliable.append((disponivel))
+
+
+print('==============================================')
+
+#conceito do cadastra é conseguir adicionar novos produtos nas  listas(product_name,product_type,product_price,.....)  atraves do append.
+
+
+def consultar(product_code, product_name, product_type, product_avaliable,
+              product_price):
+
+    codigo = int(input('Insira o código do produto: '))
+    for i in range(len(product_code)):
+        if product_code[i] == codigo:
+            print(f'Nome do produto:{product_name[i]}')
+            print(f'Codigo do produto: {product_code[i]}')
+            print(f'Tipo do produto: {product_type[i]}')
+            print(f'Preço do produto: {product_avaliable[i]}')
+            print(f'Produto disponivel: {product_price[i]}')
+
+#atraves do consultar nos conseguimos ver um determinado elemento em uma lista complexa
+
+def atualizar(product_code, product_name, product_type, product_price,
+              product_avaliable):
+
+    while True:
+        Cprod = int(input('Digite o codigo ou  -1 para sair: '))
+        if Cprod == -1:
+            #digite -1 se quiser encerrar o programa
+            break
+        for i in product_code:
+            # product_code.append(i)
+
+            if i == Cprod:
+                print(
+                    f'Podemos começar por favor digite:   2-para actualizar o nome 3-Para actualizar o tipo 4-para actualizar o preço 5-para actualizar se está disponivel ou não '
+                )
+                actP = int(input('Digite agora : '))
+            
+
+                if actP== 2:
+                    name2 = input('Digite um novo nome: ')
+                    # print(product_name[i])
+                    # product_name[i] = name2
+                    if name2 == 2:
+                        name2.remove(product_name[i])
+                        product_name.append(name2)
+
+                elif actP == 3:
+                    tipo2 = int(input('Digite um novo tipo: '))
+                    if tipo2 == 3:
+                        tipo2.remove(product_type[i])
+                        product_type.append(tipo2)
+                elif actP == 4:
+                    preco2 = float(input('Digite um novo preço: '))
+                    if preco2 == 4:
+                        preco2.remove(product_price[i])
+                        product_price.append(preco2)
+                elif actP == 5:
+                    dispo2 = bool(input('Digite True ou false:'))
+                    if dispo2 == 5:
+                        dispo2.remove(product_avaliable[i])
+                        product_avaliable.append(dispo2)
+
+                print(f'Foi realizado com sucesso')
+                break
+      
+# na teoria o codigo do consultar deveria remover uma parte do antigo codigo e adicionar outro codigo novo no mesmo lugar mas na pratica não esta funcionando.
+
+def relatorio(product_code, product_name, product_type, product_avaliable,
+              product_price):
+    print("todos os produtos digite 0")
+    print("somente filmes digite 1 ")
+    print("somente séries digite 2")
+    print("somente documentarios digite 3")
+    print("todos os produtos para venda digite 4")
+    print("todos os produtos indisponiveis digite 5")
+    num = int(input('qual opção desejada: '))
+
+    if num == 0:
+        for i in range(len(product_type)):
+            if product_type[i] != -1:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}     {product_type[i]}"
+                )
+
+    elif num == 1:
+        for i in range(len(product_type)):
+            if product_type[i] == 1:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}         Filme"
+                )
+
+    elif num == 2:
+        for i in range(len(product_type)):
+            if product_type[i] == 2:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}         Serie"
+                )
+    elif num == 3:
+        for i in range(len(product_type)):
+            if product_type[i] == 3:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}         Documentario"
+                )
+    elif num == 4:
+        for i in range(len(product_type)):
+            if product_avaliable[i] == True:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}         {product_type[i]}"
+                )
+    elif num == 5:
+        for i in range(len(product_type)):
+            if product_avaliable[i] == False:
+                print("Codigo------Nome------Preço------Genero")
+                print(
+                    f"  {product_code[i]}      {product_name[i]}    {product_price[i]}         {product_type[i]}"
+                )
+
+
+#o codigo do relatorio de produto tem o mesmo conceito do  consultar, porque atraves dele nos consguimos ver um ou mais determinados elementos da lsita. 
+              
+def registrar(product_code, product_name, product_type, product_price,
+              product_avaliable, cliente, diadacompra, listadenome,
+              listadetipo, listadepreco, valorpagar):
+
+    dia = int(input("Entrar o dia: "))
+    mes = input('entrar o mês: ')
+    ano = int(input('entrar o ano: '))
+    print(f'hoje é {dia} / {mes} / {ano}')
+    barra = "/"
+    data = str(dia) + str(barra) + str(mes) + str(barra) + str(ano)
+    diadacompra.append(data)
+
+    Nome = input("login : Digite Seu nome:")
+    login = Nome.upper()
+    print(f"Bem vindo", login)
+    cliente.append(login)
+
+    while True:
+        compras = int(
+            input(
+                "Digite o codigo do produto que deseja comprar,para parar digite -1:"
+            ))
+        valortotal = sum(listadepreco)
+        if compras == -1:
+
+            print("--------------------------------------------")
+            print("CUPOM FISCAL DAS SUAS COMPRAS")
+            print("--------------------------------------------")
+            print(f"Nome: {listadenome}")
+            print("--------------------------------------------")
+            print(f"Tipo: {listadetipo}")
+            print("--------------------------------------------")
+            print(f"Preço: {listadepreco}")
+            print("--------------------------------------------")
+            print(f"Valor total a ser pago:R$ {valortotal} reais")
+            print("--------------------------------------------")
+            break
+        else:
+            for i in range(len(product_code)):
+                if product_code[i] == compras:
+                    if product_avaliable[i] == False:
+                        print("produto não encontrado")
+                    else:
+                        print(f"{product_name[i]}")
+                        listadenome.append(product_name[i])
+                        listadetipo.append(product_type[i])
+                        listadepreco.append(product_price[i])
+                      
+#as compras tem o mesmo conceito do consultar, mas em vez de printar o elemento ela faz um append e os elementos são adicionados em uma nova lsita
+
+
+def relatório(product_code, product_name, product_type, product_price,
+              product_avaliable, cliente, diadacompra, listadenome,
+              listadetipo, listadepreco, valorpagar):
+
+    clienteb = str(input("Qual o nome do cliente:"))
+    valortotal = sum(listadepreco)
+    for i in range(len(cliente)):
+        if cliente[i] == clienteb:
+            print("--------------------------------------------")
+            print("CUPOM FISCAL DAS SUAS COMPRAS")
+            print("--------------------------------------------")
+            print(f"Nome do Cliente: {cliente[i]}")
+            print("--------------------------------------------")
+            print(f"Data da compra: {diadacompra[i]}")
+            print("--------------------------------------------")
+            print(f"Valor total a ser pago:R$ {valortotal} reias")
+            print("--------------------------------------------")
+          
+#por fim o relatorio de compras ele pega os elementos que foram adicionados nas listas atraves do registrar compras, e printa os resultados formando uma tabela
+
+
+print('1- Cadastrar produtos  ')
+print('2- Consultar produtos  ')
+print('3- Atualizar produtos ')
+print('4- Relatorio de produtos ')
+print('5- Registar compra')
+print('6- Relatorio de compra ')
+
+menu()
